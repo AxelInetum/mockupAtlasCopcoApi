@@ -62,17 +62,22 @@ const hiddenDeletePopupTruck = alerta =>({
 });
 
 export function GetlistTrucks (alerta,{t}){
-   return async (dispatch) =>{                
-        const p = Promise.resolve(new TruckService().getTruckList());
-        p.then(listTrucks => {
-            if (listTrucks !=null)
-            {
-                dispatch(getlistTrucks(listTrucks));
-            }
-            else{
-                Alert(t('nosehapodidocargar'),t('contacteadministrador'),'error');
-            }
-        });            
+   return async (dispatch) =>{                       
+
+    const listTrucks = [
+        { id:1  ,nombre: 'Apple'  ,  marca:'Volskwagen'  ,  modelo:  'FX60',  matricula:'X567a'  },
+        { id:2  ,nombre: 'Apricot',  marca:'Volskwagen'    ,  modelo: 'FX61',  matricula: 'X569a'  },
+        { id:3  ,nombre: 'Honeyberry' ,  marca: 'Volskwagen' ,  modelo:'FX62' ,  matricula:  'X27a' },
+        { id:4  ,nombre: 'Papaya' ,  marca: 'Volskwagen'  ,  modelo: 'FX65',  matricula: 'X5347a' },
+        { id:5  ,nombre: 'Jambul',  marca: 'ferrari'  ,  modelo: 'Panini' ,  matricula: 'X56227a' },
+        { id:6  , nombre: 'Plum' ,  marca: 'seat'  ,  modelo: 'Panda',  matricula: 'X562s7a'},
+        { id:7  ,nombre: 'Lemon' ,  marca: 'seat' , modelo: 'Panda' ,  matricula: 'X56227a'},
+        { id:8  ,nombre: 'Pomelo',  marca: 'seat' ,  modelo:  'Panda',  matricula:  'X562ss27a' }
+      ];
+    
+      debugger;
+    dispatch(getlistTrucks(listTrucks));
+          
    }
 }
 
@@ -84,19 +89,9 @@ const getlistTrucks = listTrucks =>({
 export function EditTrucks(TruckSelected,{t}){
     debugger;
    return async (dispatch) =>{    
-        const p = Promise.resolve( new TruckService().updateTruck(TruckSelected));
-        p.then(response => {
-            if (response)
-            {
-                debugger;
-                dispatch(editTruck(TruckSelected));
-                Alert(t('actualizadocorrectamen'),t('registroactualizadocor'),'success'); 
-            }
-            else{
-                dispatch(hiddenEditPopupTruck(false));
-                Alert(t('noseactulizado'),t('contacteadministrador'),'error');
-            }    
-        });                     
+        debugger;
+        dispatch(editTruck(TruckSelected));
+        Alert(t('actualizadocorrectamen'),t('registroactualizadocor'),'success');                      
    }
 }
 
@@ -108,20 +103,9 @@ const editTruck = TruckSelected =>({
 export function DeleteTrucks(id,currentPage,setCurrentPage,{t}){
     debugger;
     return async (dispatch) =>{   
-        debugger;   
-         const p = Promise.resolve( new TruckService().deleteTruck(id));
-         p.then(response => {
-             if (response)
-             {
-                 dispatch(deleteTruck(id));
-                 setCurrentPage(currentPage-1);
-                 Alert(t('eliminadocorrectamente'),'El registro ha sido eliminado con exito.','success'); 
-             }
-             else{
-                 dispatch(HiddenDeletePopupTruck(false));
-                 Alert(t('nosehaeliminado'),t('contacteadministrador'),'error');
-             }    
-         });                     
+        dispatch(deleteTruck(id));
+        setCurrentPage(currentPage-1);
+        Alert(t('eliminadocorrectamente'),'El registro ha sido eliminado con exito.','success');    
     }
  }
  
@@ -134,19 +118,14 @@ export function DeleteTrucks(id,currentPage,setCurrentPage,{t}){
  export function CreateTruck(Truck,history,{t}){
     debugger;
     return async (dispatch) =>{   
-        debugger;   
-         const p = Promise.resolve( new TruckService().insertTruck(Truck));
-         p.then(response => {
-             if (response)
-             {
-                 dispatch(createTruck(Truck));
-                 Alert('Camion creado correctamente','El registro ha sido creado con exito.','success');
-                 history.push('/TrucksPage');
-             }
-             else{
-                 Alert(t('nosehaeliminado'),t('contacteadministrador'),"error");
-             }    
-         });                     
+        debugger;
+        const min = 1;
+        const max = 100;
+        const rand = min + Math.random() * (max - min);
+        Truck.id = rand;
+        dispatch(createTruck(Truck));
+        Alert('Camion creado correctamente','El registro ha sido creado con exito.','success');
+        history.push('/TrucksPage');          
     }
  }
  

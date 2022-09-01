@@ -13,8 +13,8 @@ const MenuInicial = () => {
             <div>
              <NavBars></NavBars>
     
-                {datauserloginLdpa.permisions.indexOf("Admin") > -1 ? (<h1 class="centertext entertextsize">Test Inetum eres administrador</h1>) : (<h1 class="centertext entertextsize">Test Inetum no eres administrador</h1>)}
-             </div>ng
+              <h1 class="centertext entertextsize">Test Inetum no eres administrador</h1>
+             </div>
 
         </Fragment>
     );
